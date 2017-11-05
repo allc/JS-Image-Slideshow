@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Image Slideshow Demo</title>
+    <link rel="stylesheet" href="../css/slideshow.css">
+    <script src="../js/slideshow.js"></script>
+    <style>
+        #demo {
+            width: 640px;
+            height: 480px;
+        }
+    </style>
+</head>
+<body>
+<p><a href="https://github.com/allc/JS-Image-Slideshow">JS Image Slideshow</a> Demo</p>
+<div id="demo"></div>
+<script>
+    var imagePaths = ['images/brighton.jpg', 'images/new_forest.jpg', 'images/zhangye_national_geopark.jpg'];
+    var slideshowOptions = {
+        interval: 3000
+    };
+    new Slideshow(document.getElementById('demo'), imagePaths, slideshowOptions);
+</script>
+</body>
+</html>

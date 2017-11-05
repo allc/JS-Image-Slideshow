@@ -1,3 +1,12 @@
+/*
+ * JS Image Slideshow
+ * https://github.com/allc/JS-Image-Slideshow
+ *
+ * Copyright (c) 2017 Cui Jinxuan
+ *
+ * Licensed under the MIT license:
+ * https://github.com/allc/JS-Image-Slideshow/blob/master/LICENSE
+ */
 function Slideshow(container, imagesPaths, options) {
     //'use strict';
     var slideshow = this;
