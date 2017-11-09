@@ -24,7 +24,7 @@ var imagePaths = ['images/0.png', 'images/1.png', 'images/2.png'];
 var slideshowOptions = {
     interval: 3000
 };
-new Slideshow(document.getElementById('demo'), imagePaths, slideshowOptions);
+new Slideshow(document.getElementById('slideshow-container'), imagePaths, slideshowOptions);
 ```
 
 ## Requirements
