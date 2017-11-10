@@ -8,9 +8,10 @@
  * https://github.com/allc/JS-Image-Slideshow/blob/master/LICENSE
  */
 function Slideshow(container, imagesPaths, options) {
-    //'use strict';
+    'use strict';
     var slideshow = this;
 
+    // set interval
     if(options && options.interval){
         this.interval = options.interval;
     } else {
@@ -34,6 +35,17 @@ function Slideshow(container, imagesPaths, options) {
         var image = document.createElement("img");
         image.src = this.imagesPaths[i];
         image.classList.add('slideshowHiddenImage');
+
+        // set transition
+        if (options && options.transition) {
+            switch (options.transition) {
+                case 'fadeIn':
+                    image.classList.add('slideshowImageFadeIn');
+                    break;
+                default:
+                    break;
+            }
+        }
         this.imageContainer.appendChild(image);
         this.images.push(image);
     }
@@ -41,28 +53,30 @@ function Slideshow(container, imagesPaths, options) {
     this.container.appendChild(this.imageContainer);
 
     // control
-    this.controlContainer = document.createElement("div");
-    this.controlContainer.classList.add("slideshowControl");
-    // previous button
-    this.previousButton = document.createElement("button");
-    this.previousButton.textContent = '<';
-    this.previousButton.classList.add("slideshowButton");
-    this.previousButton.addEventListener("click", function(){slideshow.nextPhoto(-1)});
-    this.controlContainer.appendChild(this.previousButton);
-    // pause button
-    this.pauseButton = document.createElement("button");
-    this.pauseButton.textContent = '||';
-    this.pauseButton.classList.add("slideshowButton");
-    this.pauseButton.addEventListener("click", function(){slideshow.pausePlay()});
-    this.controlContainer.appendChild(this.pauseButton);
-    // next button
-    this.nextButton = document.createElement("button");
-    this.nextButton.textContent = '>';
-    this.nextButton.classList.add("slideshowButton");
-    this.nextButton.addEventListener("click", function(){slideshow.nextPhoto(1)});
-    this.controlContainer.appendChild(this.nextButton);
-    // add control
-    this.container.appendChild(this.controlContainer);
+    if (!options || typeof options.control === 'undefined' || options.control) {
+        this.controlContainer = document.createElement("div");
+        this.controlContainer.classList.add("slideshowControl");
+        // previous button
+        this.previousButton = document.createElement("button");
+        this.previousButton.textContent = '<';
+        this.previousButton.classList.add("slideshowButton");
+        this.previousButton.addEventListener("click", function(){slideshow.nextPhoto(-1)});
+        this.controlContainer.appendChild(this.previousButton);
+        // pause button
+        this.pauseButton = document.createElement("button");
+        this.pauseButton.textContent = '||';
+        this.pauseButton.classList.add("slideshowButton");
+        this.pauseButton.addEventListener("click", function(){slideshow.pausePlay()});
+        this.controlContainer.appendChild(this.pauseButton);
+        // next button
+        this.nextButton = document.createElement("button");
+        this.nextButton.textContent = '>';
+        this.nextButton.classList.add("slideshowButton");
+        this.nextButton.addEventListener("click", function(){slideshow.nextPhoto(1)});
+        this.controlContainer.appendChild(this.nextButton);
+        // add control
+        this.container.appendChild(this.controlContainer);
+    }
 
     // start
     this.updateImage(this.currentIndex);
@@ -70,6 +84,7 @@ function Slideshow(container, imagesPaths, options) {
 }
 
 Slideshow.prototype.updateImage = function(nextIndex, lastIndex) {
+    'use strict';
     if (typeof lastIndex !== 'undefined') {
         this.images[lastIndex].classList.add("slideshowHiddenImage");
     }
@@ -77,6 +92,7 @@ Slideshow.prototype.updateImage = function(nextIndex, lastIndex) {
 }
 
 Slideshow.prototype.startSlideshow = function() {
+    'use strict';
     this.isPlaying = true;
     var slideshow = this;
     this.autoSlideshow = setInterval(function() {
@@ -85,13 +101,13 @@ Slideshow.prototype.startSlideshow = function() {
 }
 
 Slideshow.prototype.nextPhoto = function(skip) {
+    'use strict';
     var lastIndex = this.currentIndex;
     this.currentIndex += skip;
 
     if(this.currentIndex < 0){
         this.currentIndex = this.imagesPaths.length + this.currentIndex;
     }
-
     if(this.currentIndex >= this.imagesPaths.length){
         this.currentIndex = this.currentIndex - this.imagesPaths.length;
     }
@@ -105,7 +121,8 @@ Slideshow.prototype.nextPhoto = function(skip) {
     }
 }
 
-Slideshow.prototype.pausePlay = function(button) {
+Slideshow.prototype.pausePlay = function() {
+    'use strict';
     if (this.isPlaying) {
         clearInterval(this.autoSlideshow);
         this.isPlaying = false;
