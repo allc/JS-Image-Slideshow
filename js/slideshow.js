@@ -100,6 +100,9 @@ Slideshow.prototype.startSlideshow = function() {
     }, this.interval);
 }
 
+/*
+ * Harry made the original version of this function.
+ */
 Slideshow.prototype.nextPhoto = function(skip) {
     'use strict';
     var lastIndex = this.currentIndex;
