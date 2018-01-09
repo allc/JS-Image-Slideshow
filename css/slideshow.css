@@ -12,6 +12,14 @@
     justify-content: center;
 }
 
+/*
+ * Black background with rounded corners designed by Rayna.
+ */
+.slideshowImageContainerBackground {
+    background-color: black;
+    border-radius: 20px;
+}
+
 .slideshowImageContainer img {
     display: block;
     max-width: 100%;
