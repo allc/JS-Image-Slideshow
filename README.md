@@ -23,7 +23,8 @@ In the application code, create a slideshow like this:
 var imagePaths = ['images/0.png', 'images/1.png', 'images/2.png'];
 var slideshowOptions = {
     interval: 3000,
-    transition: 'fadeIn'
+    transition: 'fadeIn',
+    background: true
 };
 new Slideshow(document.getElementById('demo'), imagePaths, slideshowOptions);
 ```
@@ -35,9 +36,15 @@ new Slideshow(document.getElementById('demo'), imagePaths, slideshowOptions);
 
 `transition`: transition effect, `null` or `'fadeIn'`, default `null`
 
+`background`: if the image container has black background with rounded corners, `true` or `false`, default `false`
+
 ## Requirements
 
 JS Image Slideshow has zero dependences.
+
+## Credits
+
+Credits to Harry and Rayna.
 
 ## License
 

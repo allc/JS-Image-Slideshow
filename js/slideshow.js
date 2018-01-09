@@ -24,15 +24,18 @@ function Slideshow(container, imagesPaths, options) {
     this.currentIndex = 0;
     this.isPlaying = false;
 
-    this.container.classList.add("slideshow"); // add class to container
+    this.container.classList.add('slideshow'); // add class to container
 
     // image container
-    this.imageContainer = document.createElement("div");
-    this.imageContainer.classList.add("slideshowImageContainer");
+    this.imageContainer = document.createElement('div');
+    this.imageContainer.classList.add('slideshowImageContainer');
+    if (options && options.background) {
+        this.imageContainer.classList.add('slideshowImageContainerBackground');
+    }
     // images
     this.images = [];
     for (var i = 0; i < imagesPaths.length; i++) {
-        var image = document.createElement("img");
+        var image = document.createElement('img');
         image.src = this.imagesPaths[i];
         image.classList.add('slideshowHiddenImage');
 
@@ -58,7 +61,7 @@ function Slideshow(container, imagesPaths, options) {
         this.controlContainer.classList.add("slideshowControl");
         // previous button
         this.previousButton = document.createElement("button");
-        this.previousButton.textContent = '<';
+        this.previousButton.textContent = '◂';
         this.previousButton.classList.add("slideshowButton");
         this.previousButton.addEventListener("click", function(){slideshow.nextPhoto(-1)});
         this.controlContainer.appendChild(this.previousButton);
@@ -70,7 +73,7 @@ function Slideshow(container, imagesPaths, options) {
         this.controlContainer.appendChild(this.pauseButton);
         // next button
         this.nextButton = document.createElement("button");
-        this.nextButton.textContent = '>';
+        this.nextButton.textContent = '▸';
         this.nextButton.classList.add("slideshowButton");
         this.nextButton.addEventListener("click", function(){slideshow.nextPhoto(1)});
         this.controlContainer.appendChild(this.nextButton);
@@ -129,11 +132,11 @@ Slideshow.prototype.pausePlay = function() {
     if (this.isPlaying) {
         clearInterval(this.autoSlideshow);
         this.isPlaying = false;
-        this.pauseButton.classList.add("slideshowButtonToggled");
+        this.pauseButton.classList.add('slideshowButtonToggled');
     } else {
         clearInterval(this.autoSlideshow);
         this.startSlideshow();
         this.isPlaying = true;
-        this.pauseButton.classList.remove("slideshowButtonToggled");
+        this.pauseButton.classList.remove('slideshowButtonToggled');
     }
 }
