@@ -26,7 +26,7 @@ var slideshowOptions = {
     transition: 'fadeIn',
     background: true
 };
-new Slideshow(document.getElementById('demo'), imagePaths, slideshowOptions);
+new Slideshow(document.getElementById('slideshow-container'), imagePaths, slideshowOptions);
 ```
 
 ## Options
