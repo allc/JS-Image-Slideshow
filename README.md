@@ -30,9 +30,11 @@ new Slideshow(document.getElementById('demo'), imagePaths, slideshowOptions);
 ```
 
 ## Options
-`interval`: the timeout between images, a number represent time in ms, default `5000`
+`interval`: the timeout between images, a number represent time in ms, default `5000`. If set to `0`, the slideshow is not automated
 
 `control`: if show the control buttons, `true` or `false`, default `true`
+
+`large`: if show the large image when clicking on the image, `true` or `false`, default `false`
 
 `transition`: transition effect, `null` or `'fadeIn'`, default `null`
 

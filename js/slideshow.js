@@ -11,12 +11,27 @@ function Slideshow(container, imagesPaths, options) {
     'use strict';
     var slideshow = this;
 
-    // set interval
-    if(options && options.interval){
-        this.interval = options.interval;
-    } else {
-        this.interval = 5000;
+    // set default
+    if (!options) {
+        options = {};
     }
+    if (typeof options.interval == 'undefined') {
+        options.interval = 5000;
+    }
+    if (typeof options.control == 'undefined') {
+        options.control = true;
+    }
+    if (typeof options.large == 'undefined') {
+        options.large = false;
+    }
+    if (typeof options.transition == 'undefined') {
+        options.transition = null;
+    }
+    if (typeof options.background == 'undefined') {
+        options.background = false;
+    }
+
+    this.interval = options.interval;
 
     this.container = container;
     this.imagesPaths = imagesPaths;
@@ -29,7 +44,7 @@ function Slideshow(container, imagesPaths, options) {
     // image container
     this.imageContainer = document.createElement('div');
     this.imageContainer.classList.add('slideshowImageContainer');
-    if (options && options.background) {
+    if (options.background) {
         this.imageContainer.classList.add('slideshowImageContainerBackground');
     }
     // images
@@ -38,16 +53,17 @@ function Slideshow(container, imagesPaths, options) {
         var image = document.createElement('img');
         image.src = this.imagesPaths[i];
         image.classList.add('slideshowHiddenImage');
+        if (options.large) {
+            image.addEventListener("click", function(){slideshow.showLargeImage()});
+        }
 
         // set transition
-        if (options && options.transition) {
-            switch (options.transition) {
-                case 'fadeIn':
-                    image.classList.add('slideshowImageFadeIn');
-                    break;
-                default:
-                    break;
-            }
+        switch (options.transition) {
+            case 'fadeIn':
+                image.classList.add('slideshowImageFadeIn');
+                break;
+            default:
+                break;
         }
         this.imageContainer.appendChild(image);
         this.images.push(image);
@@ -56,7 +72,7 @@ function Slideshow(container, imagesPaths, options) {
     this.container.appendChild(this.imageContainer);
 
     // control
-    if (!options || typeof options.control === 'undefined' || options.control) {
+    if (options.control) {
         this.controlContainer = document.createElement("div");
         this.controlContainer.classList.add("slideshowControl");
         // previous button
@@ -66,11 +82,13 @@ function Slideshow(container, imagesPaths, options) {
         this.previousButton.addEventListener("click", function(){slideshow.nextPhoto(-1)});
         this.controlContainer.appendChild(this.previousButton);
         // pause button
-        this.pauseButton = document.createElement("button");
-        this.pauseButton.textContent = '||';
-        this.pauseButton.classList.add("slideshowButton");
-        this.pauseButton.addEventListener("click", function(){slideshow.pausePlay()});
-        this.controlContainer.appendChild(this.pauseButton);
+        if (this.interval != 0) { // does not show pause button if interval is 0 (not automated slideshow)
+            this.pauseButton = document.createElement("button");
+            this.pauseButton.textContent = '||';
+            this.pauseButton.classList.add("slideshowButton");
+            this.pauseButton.addEventListener("click", function(){slideshow.pausePlay()});
+            this.controlContainer.appendChild(this.pauseButton);
+        }
         // next button
         this.nextButton = document.createElement("button");
         this.nextButton.textContent = '▸';
@@ -96,6 +114,10 @@ Slideshow.prototype.updateImage = function(nextIndex, lastIndex) {
 
 Slideshow.prototype.startSlideshow = function() {
     'use strict';
+    if (this.interval == 0) { // slideshow is not automated if interval is 0
+        return;
+    }
+
     this.isPlaying = true;
     var slideshow = this;
     this.autoSlideshow = setInterval(function() {
@@ -139,4 +161,8 @@ Slideshow.prototype.pausePlay = function() {
         this.isPlaying = true;
         this.pauseButton.classList.remove('slideshowButtonToggled');
     }
+}
+
+Slideshow.prototype.showLargeImage = function() {
+    'use strict';
 }
